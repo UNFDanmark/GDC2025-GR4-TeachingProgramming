@@ -13,7 +13,7 @@ public class MoneySpawner : MonoBehaviour
 
     float actualCooldown = 0;
 
-    float actualEnemyCooldown = 0;
+    public float actualEnemyCooldown = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -31,13 +31,13 @@ public class MoneySpawner : MonoBehaviour
             Instantiate(moneyPrefab, pos, initRot);
         }
 
-        moneyCooldown -= Time.deltaTime;
+        actualEnemyCooldown -= Time.deltaTime;
         if (actualEnemyCooldown <= 0)
         {
-            actualEnemyCooldown = moneyCooldown;
+            actualEnemyCooldown = enemyCooldown;
             Vector3 pos = new Vector3(Random.Range(moneyAreaMin, moneyAreaMax), moneyLift,
                 Random.Range(moneyAreaMin, moneyAreaMax));
-            Instantiate(moneyPrefab, pos, Quaternion.identity);
+            Instantiate(enemyPrefab, pos, Quaternion.identity);
         }
     }
 }
