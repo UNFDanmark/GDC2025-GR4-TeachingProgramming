@@ -12,6 +12,7 @@ public class PlayerScript : MonoBehaviour
     public InputAction shootAction;
     public float shootingSpeed;
     public float bulletLiveTime;
+    public Animator animator;
 
     public GameObject bulletPrefab;
     public GameObject bulletSpawnPoint;
@@ -35,6 +36,7 @@ public class PlayerScript : MonoBehaviour
         if (0 >= actualCooldown && shootAction.WasPerformedThisFrame())
         {
             print("tries");
+            animator.SetTrigger("Shoot");
             actualCooldown = cooldownHit;
             GameObject obj = Instantiate(bulletPrefab, bulletSpawnPoint.transform.position, transform.rotation);
 
@@ -45,10 +47,10 @@ public class PlayerScript : MonoBehaviour
             
         print("Update: you still look cute!");
         //transform.position += new Vector3(speed*Time.deltaTime, 0,0);
-
         transform.position = transform.position + transform.forward  * (moveAction.ReadValue<float>() * speed* Time.deltaTime);
         
         transform.Rotate(0,rotationAction.ReadValue<float>(),0);
         
+        animator.SetFloat("Speed", Mathf.Abs(moveAction.ReadValue<float>() * speed));
     }
 }
